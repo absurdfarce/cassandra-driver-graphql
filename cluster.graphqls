@@ -1,0 +1,17 @@
+    schema {
+        query: QueryType
+    }
+
+    type QueryType {
+        keyspace(name: String): Keyspace
+    }
+
+    type Keyspace {
+        name: String
+        tableCount: Int
+        tables: [Table]
+    }
+    
+    type Table {
+        name: String
+    }
