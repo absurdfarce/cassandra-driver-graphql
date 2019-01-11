@@ -82,6 +82,7 @@ public class BaseGraphQLTest {
 			ExecutionResult executionResult = graphQL.execute(executionInput);
 			Object data = executionResult.getData();
 			System.out.println("Data: " + data);
+			System.out.println("Data class: " + data.getClass().toString());
 			List<GraphQLError> errors = executionResult.getErrors();
 			System.out.println("Errors: " + errors);
 		}
