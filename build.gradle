@@ -1,8 +1,10 @@
 plugins {
     id 'java-library'
+    id 'groovy'
 }
 
 dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:2.5.2'
     implementation 'com.google.guava:guava:23.0'
     compile ("com.datastax.dse:dse-java-driver-core:1.7.0") {
         exclude group: "com.google.guava", module: "guava"
