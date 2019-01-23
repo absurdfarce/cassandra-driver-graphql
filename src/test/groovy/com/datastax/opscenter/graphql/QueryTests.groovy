@@ -6,6 +6,7 @@ import org.junit.Test
 
 import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.Metadata
+import com.google.gson.Gson
 
 import graphql.ExecutionInput
 import graphql.GraphQL
@@ -119,6 +120,48 @@ query {
 					session.cluster.metadata.getKeyspace(Metadata.quoteIfNecessary(it.name)).tables.size(),
 					it.tableCount)
 			}
+		}
+	}
+
+	/* Tests below aren't legit unit tests... just monkeying around with the introspection interface */
+	@Test
+	public void testIntrospectionAllTypes() {
+
+		def query = """
+{
+   __schema {
+      types {
+         name
+      }
+   }
+}
+"""
+
+		runTest(query) { result, session ->
+			println new Gson().toJson(result.data)
+		}
+	}
+
+	@Test
+	public void testIntrospectionTypeDetails() {
+
+		def query = """
+{
+   __type(name:"Keyspace") {
+      name
+      fields {
+         name
+         type {
+            name
+            kind
+         }
+      }
+   }
+}
+"""
+
+		runTest(query) { result, session ->
+			println new Gson().toJson(result.data)
 		}
 	}
 }
