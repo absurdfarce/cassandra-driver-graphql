@@ -23,7 +23,11 @@ public class CassandraDriverWiringBuilder {
 	public CassandraDriverWiringBuilder query(Session session) {
 		
 		builder.type("QueryType", typeWiring -> typeWiring
-				.dataFetcher("keyspace", StatefulDataFetchers.keyspaceMetadata(session)));
+				.dataFetcher("keyspace", env -> {
+
+					String name = env.getArgument("name");
+					return session.getCluster().getMetadata().getKeyspace(name);
+				}));
 		return this;
 	}
 	
@@ -32,6 +36,7 @@ public class CassandraDriverWiringBuilder {
 		
 		builder.type("Keyspace", typeWiring -> typeWiring
 				.dataFetcher("tableCount", env -> {
+
 					return Utils.validateSource(env, KeyspaceMetadata.class).getTables().size();
 				}));
 		return this;
