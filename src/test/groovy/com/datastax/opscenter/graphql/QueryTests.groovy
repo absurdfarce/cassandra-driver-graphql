@@ -5,12 +5,9 @@ import static org.junit.Assert.*
 import org.junit.Test
 
 import com.datastax.driver.core.Cluster
-import com.datastax.driver.core.Session
 
 import graphql.ExecutionInput
-import graphql.ExecutionResult
 import graphql.GraphQL
-import graphql.schema.GraphQLSchema
 
 class QueryTests {
 	

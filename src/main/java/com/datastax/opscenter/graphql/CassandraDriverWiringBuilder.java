@@ -1,5 +1,6 @@
 package com.datastax.opscenter.graphql;
 
+import com.datastax.driver.core.KeyspaceMetadata;
 import com.datastax.driver.core.Session;
 
 import graphql.schema.idl.RuntimeWiring;
@@ -30,7 +31,9 @@ public class CassandraDriverWiringBuilder {
 	public CassandraDriverWiringBuilder keyspace() {
 		
 		builder.type("Keyspace", typeWiring -> typeWiring
-				.dataFetcher("tableCount", StatelessDataFetchers.keyspaceTableCount()));
+				.dataFetcher("tableCount", env -> {
+					return Utils.validateSource(env, KeyspaceMetadata.class).getTables().size();
+				}));
 		return this;
 	}
 	
