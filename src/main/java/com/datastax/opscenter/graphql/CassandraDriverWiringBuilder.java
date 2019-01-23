@@ -2,6 +2,7 @@ package com.datastax.opscenter.graphql;
 
 import com.datastax.driver.core.KeyspaceMetadata;
 import com.datastax.driver.core.Session;
+import com.google.common.collect.ImmutableList;
 
 import graphql.schema.idl.RuntimeWiring;
 
@@ -25,8 +26,15 @@ public class CassandraDriverWiringBuilder {
 		builder.type("QueryType", typeWiring -> typeWiring
 				.dataFetcher("keyspace", env -> {
 
-					String name = env.getArgument("name");
-					return session.getCluster().getMetadata().getKeyspace(name);
+					if (env.containsArgument("name")) {
+
+						String name = env.getArgument("name");
+						return ImmutableList.of(session.getCluster().getMetadata().getKeyspace(name));
+					}
+					else {
+
+						return ImmutableList.copyOf(session.getCluster().getMetadata().getKeyspaces());
+					}
 				}));
 		return this;
 	}

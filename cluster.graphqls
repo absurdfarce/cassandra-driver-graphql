@@ -3,7 +3,7 @@
     }
 
     type QueryType {
-        keyspace(name: String): Keyspace
+        keyspace(name: String): [Keyspace]
     }
 
     type Keyspace {
