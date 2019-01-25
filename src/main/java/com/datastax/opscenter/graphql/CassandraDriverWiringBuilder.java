@@ -10,6 +10,9 @@ import graphql.schema.idl.RuntimeWiring;
  * Builder impl for adding type wirings as needed.  Note that we don't have to add wirings for any props that
  * follow the JavaBeans getter conventions; by default the PropertyDataFetcher is used for props without an
  * otherwise defined DataFetcher impl.
+ *
+ * The root idea being exercised here is that DataFetchers implemented by lambdas at wiring construction time
+ * can be useful by closing over necessary state, in this case sessions (or, more realistically, probably clusters).
  */
 public class CassandraDriverWiringBuilder {
 
