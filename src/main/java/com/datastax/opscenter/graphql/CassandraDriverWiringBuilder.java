@@ -29,6 +29,7 @@ public class CassandraDriverWiringBuilder {
 		builder.type("QueryType", typeWiring -> typeWiring
 				.dataFetcher("keyspace", env -> {
 
+					/* Make the "name" param optional; if not supplied we should retrieve everybody */
 					if (env.containsArgument("name")) {
 
 						String name = env.getArgument("name");
