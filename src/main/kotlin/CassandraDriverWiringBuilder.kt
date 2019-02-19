@@ -15,13 +15,10 @@ class CassandraDriverWiringBuilder {
 				
 				/* Make the "name" param optional; if not supplied we should retrieve everybody */
 				if (env.containsArgument("name")) {
-					val ksName:String = env.getArgument("name")
-					listOf(session.getCluster().getMetadata().getKeyspace(ksName))
+					val ksName:Any = env.getArgument("name")
+					listOf(session.getCluster().getMetadata().getKeyspace(ksName.toString()))
 				}
-				else {
-
-					session.getCluster().getMetadata().getKeyspaces().toList()
-				}
+				else { session.getCluster().getMetadata().getKeyspaces().toList() }
 			}
 		}
 		return this
@@ -34,7 +31,7 @@ class CassandraDriverWiringBuilder {
 				val srcObject:Any = env.getSource()
 				if (srcObject is KeyspaceMetadata) {
 					srcObject.getTables().size
-				}
+				} else { -1 }
 			}
 		}
 		return this
