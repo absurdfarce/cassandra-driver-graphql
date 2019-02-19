@@ -49,7 +49,7 @@ public class CassandraDriverWiringBuilder {
 		builder.type("Keyspace", typeWiring -> typeWiring
 				.dataFetcher("tableCount", env -> {
 
-					return Utils.validateSource(env, KeyspaceMetadata.class).getTables().size();
+					return UtilsKt.validateSource(env, KeyspaceMetadata.class).getTables().size();
 				}));
 		return this;
 	}
