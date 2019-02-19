@@ -2,7 +2,19 @@ package com.datastax.opscenter.graphql
 
 import com.datastax.driver.core.KeyspaceMetadata
 import com.datastax.driver.core.Session
+import graphql.schema.GraphQLSchema
 import graphql.schema.idl.RuntimeWiring
+import graphql.schema.idl.SchemaGenerator
+import graphql.schema.idl.SchemaParser
+import java.io.Reader
+
+fun buildSchema(schemaSDLReader:Reader, session:Session):GraphQLSchema {
+	/* TODO: if SchemaParser and SchemaGenerator are thread-safe t'would be nice to just have a single
+	 * static instance of them */
+	val typeRegistry = SchemaParser().parse(schemaSDLReader)
+	val wiring = CassandraDriverWiringBuilder().query(session).keyspace().build()
+	return SchemaGenerator().makeExecutableSchema(typeRegistry, wiring)
+}
 
 class CassandraDriverWiringBuilder {
 

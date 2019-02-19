@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
-import com.datastax.opscenter.graphql.CassandraDriverSchemaFactory;
+import com.datastax.opscenter.graphql.WiringKt;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
@@ -52,7 +52,7 @@ public class BaseServlet extends HttpServlet {
 			/* TODO: in a real app the schema file would be supplied via config.getServletContext().getResource() (or
 			 * even statically generated via the programmatic API).  As above we're doing this now for sake of expediency. */
 			String schemaFile = config.getInitParameter("schemaFile");
-			GraphQLSchema schema = CassandraDriverSchemaFactory.buildSchema(new FileReader(schemaFile), session);
+			GraphQLSchema schema = WiringKt.buildSchema(new FileReader(schemaFile), session);
 			this.graphQL = GraphQL.newGraphQL(schema).build();
 		}
 		catch (IOException ioe) {
