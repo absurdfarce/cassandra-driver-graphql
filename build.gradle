@@ -15,7 +15,9 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.5'
     compile 'org.eclipse.jetty:jetty-server:9.4.14.v20181114'
     compile 'org.eclipse.jetty:jetty-servlet:9.4.14.v20181114'
-    testImplementation 'junit:junit:4.12'
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.0'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
 }
 
 repositories {
