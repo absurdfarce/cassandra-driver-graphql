@@ -1,6 +1,6 @@
 package com.datastax
 
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import kotlin.test.assertEquals
 
 /* Noticed while working on the GraphQL code I noticed that Kotlin didn't appear to be returning a value for
